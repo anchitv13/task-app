@@ -27,11 +27,13 @@ export class ListTaskComponent implements OnInit {
     this.datePicketCurrentDate = this.currentDate
     this.taskList = this._cookieService.getTaskList()
 
-    // Update Flags in list
-    this.taskList = this.updateTaskFlags(this.taskList)
+    if (this.taskList) {
+      // Update Flags in list
+      this.taskList = this.updateTaskFlags(this.taskList)
 
-    // sort tasks in list
-    this.taskList = this.sortTasks(this.taskList)
+      // sort tasks in list
+      this.taskList = this.sortTasks(this.taskList)
+    }
   }
 
   sortTasks(unsortedTasks: Task[]) {
