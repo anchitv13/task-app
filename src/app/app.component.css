@@ -1,0 +1,19 @@
+.background {
+    background: rgb(13,9,80);
+    background: linear-gradient(121deg, rgba(13,9,80,1) 0%, rgb(147, 62, 154) 35%, rgba(0,0,0,1) 100%);
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    background-size: cover;
+    position: fixed; /* Change to fixed */
+    top: 0;          /* Ensure it covers the viewport */
+    left: 0;         /* Ensure it covers the viewport */
+    right: 0;        /* Ensure it covers the viewport */
+    bottom: 0;       /* Ensure it covers the viewport */
+    z-index: -1;
+}
+
+.content {
+    position: relative; /* Change to relative or absolute as needed */
+    z-index: 1;
+    /* Add additional styles for spacing and alignment */
+}
