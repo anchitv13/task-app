@@ -97,6 +97,7 @@ export class ListTaskComponent implements OnInit {
 
   // Updating Flags for List of Tasks  
   updateTaskFlags(listOfTasks: Task[]) {
+    if (!listOfTasks) return []
     for (let index = 0; index < listOfTasks.length; index++) {
       const task = listOfTasks[index];
       const taskCompletionDate = new Date(task.taskCompletionDate)
