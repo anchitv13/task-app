@@ -17,7 +17,7 @@ export class CookieServiceService {
 
   getTaskList() {
     const value = localStorage.getItem(this.taskListString)
-    return value ? JSON.parse(value) : []
+    return value ? JSON.parse(value) : this.emptyTaskList
   }
 
 }
