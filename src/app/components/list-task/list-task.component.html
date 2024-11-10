@@ -1,0 +1,161 @@
+<div *ngIf="taskList.length > 0; else noTaskAvailableSection">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="text-white mb-4">Let's get on with it!!</h1>
+        </div>
+        <div class="col-4 d-flex justify-content-end px-4">
+            <h1><a routerLink="task" type="button" class="btn btn-outline-light">Create a new Task?</a></h1>
+        </div>
+    </div>
+    <div class="mb-3" *ngFor="let task of taskList">
+        <div *ngIf="task.isCompletedTask === 'Y'">
+            <ng-container *ngTemplateOutlet="completedTask; context: {$implicit: task}"></ng-container>
+        </div>
+        <div *ngIf="task.isMissedTask === 'Y'">
+            <ng-container *ngTemplateOutlet="missedTask; context: {$implicit: task}"></ng-container>
+        </div>
+        <div *ngIf="task.isPendingTask === 'Y'">
+            <ng-container *ngTemplateOutlet="pendingTask; context: {$implicit: task}"></ng-container>
+        </div>
+    </div>
+</div>
+
+<!-- Missed Task Div -->
+<ng-template #missedTask let-task>
+    <div class="card bg-danger-subtle">
+        <div class="card-body">
+            <h5 class="card-title">
+                <p>
+                    <a (click)="sendData(task)" class="link-dark link-offset-2 link-underline-opacity-25">
+                        {{task.taskName}}
+                    </a>
+                </p>
+            </h5>
+            <p class="card-text">{{task.taskDescription}}</p>
+            <div class="d-flex justify-content-around align-items-baseline">
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose a Target Date</mat-label>
+                    <input matInput [matDatepicker]="picker" (focus)="picker.open()" [min]="datePicketStartDate"
+                        [(ngModel)]="task.taskCompletionDate" (dateInput)="updateTask(task)"
+                        (dateChange)="updateTask(task)">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="month" [startAt]="datePicketCurrentDate"></mat-datepicker>
+                </mat-form-field>
+
+                <section class="example-section">
+                    <mat-slide-toggle class="example-margin" [color]="color" checked="{{task.isTaskCompleted}}"
+                        (change)="updateTask(task)" [disabled]="false">
+                        &nbsp; Missed
+                    </mat-slide-toggle>
+                </section>
+
+                <div class="example-button-container">
+                    <button mat-mini-fab [color]="color" aria-label="Example icon button with a delete icon"
+                        (click)="deleteTask(task.taskId)">
+                        <mat-icon><span class="material-symbols-outlined">
+                                delete
+                            </span></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Completed Task Div -->
+<ng-template #completedTask let-task>
+    <div class="card bg-success-subtle">
+        <div class="card-body">
+            <h5 class="card-title">
+                <p>
+                    <a (click)="sendData(task)" class="link-dark link-offset-2 link-underline-opacity-25">
+                        {{task.taskName}}
+                    </a>
+                </p>
+            </h5>
+            <p class="card-text">{{task.taskDescription}}</p>
+            <div class="d-flex justify-content-around align-items-baseline">
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose a Target Date</mat-label>
+                    <input matInput [matDatepicker]="picker" (focus)="picker.open()" [min]="datePicketStartDate"
+                        [(ngModel)]="task.taskCompletionDate" (dateInput)="updateTask(task)"
+                        (dateChange)="updateTask(task)">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="month" [startAt]="datePicketCurrentDate"></mat-datepicker>
+                </mat-form-field>
+
+                <section class="example-section">
+                    <mat-slide-toggle class="example-margin" [color]="color" checked="{{task.isTaskCompleted}}"
+                        (change)="updateTask(task)" [disabled]="false">
+                        &nbsp; Completed
+                    </mat-slide-toggle>
+                </section>
+
+                <div class="example-button-container">
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon"
+                        (click)="deleteTask(task.taskId)">
+                        <mat-icon><span class="material-symbols-outlined">
+                                delete
+                            </span></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Pending Task Div -->
+<ng-template #pendingTask let-task>
+    <div class="card bg-subtle">
+        <div class="card-body">
+            <h5 class="card-title">
+                <p>
+                    <a (click)="sendData(task)" class="link-dark link-offset-2 link-underline-opacity-25">
+                        {{task.taskName}}
+                    </a>
+                </p>
+            </h5>
+            <p class="card-text">{{task.taskDescription}}</p>
+            <div class="d-flex justify-content-around align-items-baseline">
+                <mat-form-field appearance="fill">
+                    <mat-label aria-placeholder="MM/DD/YYYY">Choose a Target Date</mat-label>
+                    <input matInput [matDatepicker]="picker" (focus)="picker.open()" [min]="datePicketStartDate"
+                        [(ngModel)]="task.taskCompletionDate" (dateInput)="updateTask(task)"
+                        (dateChange)="updateTask(task)">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="month" [startAt]="datePicketCurrentDate"></mat-datepicker>
+                </mat-form-field>
+
+                <section>
+                    <mat-slide-toggle class="example-margin" [color]="color" checked="{{task.isTaskCompleted}}"
+                        (change)="updateTask(task)" [disabled]="false">
+                        &nbsp; Pending
+                    </mat-slide-toggle>
+                </section>
+
+                <div>
+                    <button mat-mini-fab color="primary" aria-label="Icon button with a delete icon"
+                        (click)="deleteTask(task.taskId)">
+                        <mat-icon><span class="material-symbols-outlined">
+                                delete
+                            </span></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noTaskAvailableSection>
+    <div class="empty-task-list">
+        <div class="container">
+            <div class="alert no-content text-center">
+                <h5 class="mb-0">Uh-Oh! Looks like there is nothing available here</h5>
+                <p>No Worries! You can create a new task by clicking <a routerLink="task"
+                        class="link-light link-offset-2 link-underline-opacity-50 link-underline-opacity-100-hover">here</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

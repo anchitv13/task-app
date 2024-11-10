@@ -1,0 +1,36 @@
+.empty-task-list {
+    /* background-color: #f8f9fa; */
+    height: 80vh;
+    /* Full viewport height */
+    display: flex;
+    /* Flexbox for centering */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.no-content {
+    /* background: linear-gradient(135deg, rgba(255, 205, 0, 0.9), rgba(255, 85, 0, 0.9)); */
+    background: linear-gradient(239deg, rgba(13, 9, 80, 1) 0%, rgb(147, 62, 154) 35%, rgba(0, 0, 0, 1) 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.no-content:hover {
+    transform: scale(1.05);
+    /* Scale effect on hover */
+}
+
+.no-content h5 {
+    font-weight: bold;
+}
+
+a:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,91 @@
+<div *ngIf="task">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="text-white mb-4">Update your task here...</h1>
+        </div>
+        <div class="col-4 d-flex justify-content-end px-4">
+            <h1><a routerLink="" type="button" class="btn btn-outline-light">View your tasks</a></h1>
+        </div>
+    </div>
+
+    <div class="card bg-subtle">
+        <div class="card-body">
+            <h5 class="card-title">
+                <mat-form-field>
+                    <mat-label>Provide your Task Title</mat-label>
+                    <input matInput placeholder="Ex. Build a Snowman" [(ngModel)]="task.taskName">
+                </mat-form-field>
+            </h5>
+            <div class="d-flex justify-content-center align-items-baseline">
+                <mat-form-field>
+                    <mat-label>Task Description</mat-label>
+                    <textarea matInput placeholder="Ex. Make three huge ice balls for the snowman..."
+                        [(ngModel)]="task.taskDescription" rows="4"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="m-2">
+                <div class="row">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a Target Date</mat-label>
+                            <input matInput [matDatepicker]="picker" (focus)="picker.open()" [min]="datePicketStartDate"
+                                [(ngModel)]="task.taskCompletionDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="month" [startAt]="currentDate"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-start pt-2">
+                        <h1 *ngIf="task"><a type="button" class="btn btn-outline-dark"
+                                (click)="updateTask(task)">Update!</a></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!task">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="text-white mb-4">Lets create a new task...</h1>
+        </div>
+        <div class="col-4 d-flex justify-content-end px-4">
+            <h1><a routerLink="" type="button" class="btn btn-outline-light">View your tasks</a></h1>
+        </div>
+    </div>
+
+    <div class="card bg-subtle">
+        <div class="card-body">
+            <h5 class="card-title">
+                <mat-form-field>
+                    <mat-label>Provide your Task Title</mat-label>
+                    <input matInput placeholder="Ex. Build a Snowman" [(ngModel)]="taskName">
+                </mat-form-field>
+            </h5>
+            <div class="d-flex justify-content-center align-items-baseline">
+                <mat-form-field>
+                    <mat-label>Task Description</mat-label>
+                    <textarea matInput placeholder="Ex. Make three huge ice balls for the snowman..."
+                        [(ngModel)]="taskDescription" rows="4"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="m-2">
+                <div class="row">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker" (focus)="picker.open()" [min]="datePicketStartDate"
+                                [(ngModel)]="taskCompletionDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="month" [startAt]="currentDate"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-start pt-2">
+                        <h1 *ngIf="!task"><a type="button" class="btn btn-outline-dark"
+                                (click)="createTask(taskName, taskDescription, taskCompletionDate)">Create!</a></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
