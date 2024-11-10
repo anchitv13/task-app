@@ -56,13 +56,7 @@ export class CreateTaskComponent implements OnInit {
   // create a new task
   createTask(taskName: string, taskDescription: string, taskCompletionDate: Date) {
 
-    let taskList: Task[] = []
-
-    const storageTask: Task[] = this._cookieService.getTaskList()
-
-    if (typeof storageTask !== 'undefined' && storageTask !== null) {
-      taskList = storageTask
-    }
+    let taskList: Task[] = (this._cookieService.getTaskList()) ? this._cookieService.getTaskList() : []
 
     const timestamp = Date.now()
     const randomNum = Math.floor(Math.random() * 1000)
