@@ -22,6 +22,7 @@ export class CreateTaskComponent implements OnInit {
   taskName: string = ''
   taskDescription: string = ''
   taskCompletionDate: Date = this.currentDate
+  taskList: Task[] = []
 
   constructor(private _taskService: TaskServiceService, private _cookieService: CookieServiceService, private _router: Router, private _snackBar: MatSnackBar) { }
 
@@ -37,18 +38,18 @@ export class CreateTaskComponent implements OnInit {
   // Update Task
   updateTask(updatedTask: Task) {
 
-    const taskList: Task[] = this._cookieService.getTaskList()
+    this.taskList = this._cookieService.getTaskList()
 
-    const existingTaskIndex = taskList.findIndex((task: Task) => task.taskId === updatedTask.taskId)
-    const existingTask = taskList[existingTaskIndex]
+    const existingTaskIndex = this.taskList.findIndex((task: Task) => task.taskId === updatedTask.taskId)
+    const existingTask = this.taskList[existingTaskIndex]
     const existingTaskCompletionDate: Date = new Date(existingTask.taskCompletionDate)
     
     // update date to end of the day
     const newTaskCompletionDate: Date = new Date(updatedTask.taskCompletionDate.getFullYear(), updatedTask.taskCompletionDate.getMonth(), updatedTask.taskCompletionDate.getDate(), 23, 59, 59)
     updatedTask.taskCompletionDate = newTaskCompletionDate
 
-    taskList[existingTaskIndex] = updatedTask
-    this._cookieService.saveTaskList(taskList)
+    this.taskList[existingTaskIndex] = updatedTask
+    this._cookieService.saveTaskList(this.taskList)
     this.openSnackBar('Task has been updated successfully!')
     this._router.navigateByUrl('')
   }
@@ -56,7 +57,8 @@ export class CreateTaskComponent implements OnInit {
   // create a new task
   createTask(taskName: string, taskDescription: string, taskCompletionDate: Date) {
 
-    let taskList: Task[] = (this._cookieService.getTaskList()) ? this._cookieService.getTaskList() : []
+    if (!this.taskList)
+      this.taskList = []
 
     const timestamp = Date.now()
     const randomNum = Math.floor(Math.random() * 1000)
@@ -70,8 +72,8 @@ export class CreateTaskComponent implements OnInit {
       isTaskCompleted: false
     }
 
-    taskList.push(createdTask)
-    this._cookieService.saveTaskList(taskList)
+    this.taskList.push(createdTask)
+    this._cookieService.saveTaskList(this.taskList)
     this.openSnackBar('Task has been created successfully!')
     this._router.navigateByUrl('')
 
