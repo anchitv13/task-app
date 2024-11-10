@@ -7,7 +7,7 @@ import { Task } from '../modals/tasks';
 export class CookieServiceService {
 
   taskListString: string = 'taskList'
-  emptyTaskList!: Task[]
+  emptyTaskList: Task[] = []
 
   constructor() { }
 
