@@ -13,7 +13,7 @@ import { TaskServiceService } from 'src/app/services/task-service.service';
 })
 export class CreateTaskComponent implements OnInit {
 
-  isTask: boolean = false
+  // isTask: boolean = false
   task: Task | undefined
   currentDate = new Date()
   datePicketStartDate = new Date(1990, 0, 1)
@@ -28,9 +28,11 @@ export class CreateTaskComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.taskList = this._cookieService.getTaskList()
+
     const tempTask = this._taskService.getTask()
     if (tempTask) {
-      this.isTask = true
+      // this.isTask = true
       this.task = tempTask
     }
   }
