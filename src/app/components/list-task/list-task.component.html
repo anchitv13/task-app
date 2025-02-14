@@ -1,4 +1,4 @@
-<div *ngIf="taskList.length > 0; else noTaskAvailableSection">
+<div *ngIf="taskList && taskList.length > 0; else noTaskAvailableSection">
     <div class="row">
         <div class="col-8">
             <h1 class="text-white mb-4">Let's get on with it!!</h1>
